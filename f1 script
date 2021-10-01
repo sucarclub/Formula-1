@@ -1,0 +1,41 @@
+#!/bin/bash
+
+##
+# Westsite status check script
+# Author: Jonathan
+# Date: 1/10/2020
+. . .
+. . .
+##
+# Discord webhook
+# Change the 'your_discord_webhook_name' with your actual Discord Webhook
+##
+url="F1 bot"
+. . .
+. . .
+##
+# List of websites to check
+##
+websites_list="formula1.com/en/latest.html"
+. . .
+. . .
+for website in ${websites_list} ; do
+        status_code=$(curl --write-out %{http_code} --silent --output /dev/null -L ${website})
+        echo $status_code
+done
+. . .
+. . .
+        if [[ "$status_code" -ne 200 ]] ; then
+            # POST request to Discord Webhook with the domain name and the HTTP status code
+        else
+            echo "${website} is running!"
+        fi
+. . .
+. . .
+        if [[ "$status_code" -ne 200 ]] ; then
+            # POST request to Discord Webhook with the domain name and the HTTP status code
+            curl -H "Content-Type: application/json" -X POST -d '{"content":"'"${domain} returned: ${status_code}"'"}'  $url
+        else
+            echo "${website} is running!"
+        fi
+. . .
